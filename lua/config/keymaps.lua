@@ -1,0 +1,52 @@
+vim.g.mapleader = " "
+
+--filter
+vim.keymap.set("n", "<leader>ff", ":Telescope find_files<CR>", { noremap = true, silent = true })
+
+--nvim tree
+vim.keymap.set("n", "<leader>e", ":NvimTreeToggle<CR>", { noremap = true, silent = true })
+
+-- bufory
+-- Przejdź do następnego bufora
+vim.keymap.set("n", "<Tab>", "<Cmd>BufferLineCycleNext<CR>", { desc = "Następny bufor" })
+-- Przejdź do poprzedniego bufora
+vim.keymap.set("n", "<S-Tab>", "<Cmd>BufferLineCyclePrev<CR>", { desc = "Poprzedni bufor" })
+
+vim.keymap.set("n", "<leader>bc", "<Cmd>bd<CR>", { desc = "Zamknij bieżący bufor" })
+
+--okna
+-- Podziel poziomo
+vim.keymap.set("n", "<leader>sh", "<Cmd>split<CR>", { desc = "Podziel poziomo" })
+
+-- Podziel pionowo
+vim.keymap.set("n", "<leader>sv", "<Cmd>vsplit<CR>", { desc = "Podziel pionowo" })
+
+vim.keymap.set("n", "<C-h>", "<C-w>h", { desc = "Do okna w lewo" })
+vim.keymap.set("n", "<C-l>", "<C-w>l", { desc = "Do okna w prawo" })
+vim.keymap.set("n", "<C-j>", "<C-w>j", { desc = "Do okna w dół" })
+vim.keymap.set("n", "<C-k>", "<C-w>k", { desc = "Do okna w górę" })
+
+vim.keymap.set("n", "<A-Left>", "<C-w><", { desc = "Zmniejsz szerokość" })
+vim.keymap.set("n", "<A-Right>", "<C-w>>", { desc = "Zwiększ szerokość" })
+vim.keymap.set("n", "<A-Up>", "<C-w>+", { desc = "Zwiększ wysokość" })
+vim.keymap.set("n", "<A-Down>", "<C-w>-", { desc = "Zmniejsz wysokość" })
+
+vim.keymap.set("n", "<leader>sx", "<Cmd>close<CR>", { desc = "Zamknij split" })
+
+--git-worktree
+-- otwarcie listy worktree'ów
+vim.keymap.set("n", "<leader>gw", function()
+  require("telescope").extensions.git_worktree.git_worktrees()
+end, { desc = "List Git Worktrees" })
+
+-- utworzenie nowego worktree
+vim.keymap.set("n", "<leader>gc", function()
+  require("telescope").extensions.git_worktree.create_git_worktree()
+end, { desc = "Create Git Worktree" })
+
+--lazydocker
+
+vim.keymap.set({ "n", "t" }, "<leader>ld", "<Cmd>lua LazyDocker.toggle()<CR>")
+
+--terminal
+vim.keymap.set("n", "<leader>;", "<Cmd>:FloatermToggle<CR>")
