@@ -3,6 +3,15 @@ return {
   dependencies = { "nvim-tree/nvim-web-devicons" }, -- opcjonalne, ale polecane
   config = function()
     require("nvim-tree").setup({
+      actions = {
+        open_file = {
+          quit_on_open = false,
+        },
+      },
+      filesystem_watchers = {
+        enable = true,
+      },
+
       sort = {
         sorter = "case_sensitive",
       },

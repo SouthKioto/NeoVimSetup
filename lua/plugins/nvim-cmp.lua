@@ -19,9 +19,9 @@ return {
     }
 
     opts.mapping = cmp.mapping.preset.insert({
-      ["<down>"] = cmp.mapping.select_next_item(),
-      ["<up>"] = cmp.mapping.select_prev_item(),
-      ["Tab"] = cmp.mapping.confirm(),
+      ["<Down>"] = cmp.mapping.select_next_item(),
+      ["<Up>"] = cmp.mapping.select_prev_item(),
+      ["<Tab>"] = cmp.mapping.confirm(),
     })
 
     opts.sources = {
