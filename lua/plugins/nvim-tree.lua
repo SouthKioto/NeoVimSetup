@@ -1,28 +1,53 @@
 return {
   "nvim-tree/nvim-tree.lua",
-  dependencies = { "nvim-tree/nvim-web-devicons" }, -- opcjonalne, ale polecane
+  dependencies = "nvim-tree/nvim-web-devicons",
   config = function()
-    require("nvim-tree").setup({
-      actions = {
-        open_file = {
-          quit_on_open = false,
-        },
-      },
-      filesystem_watchers = {
-        enable = true,
+    local nvimtree = require("nvim-tree")
+
+    -- recommended settings from nvim-tree documentation
+    vim.g.loaded_netrw = 1
+    vim.g.loaded_netrwPlugin = 1
+
+    nvimtree.setup({
+      view = {
+        width = 35,
+        relativenumber = true,
       },
 
-      sort = {
-        sorter = "case_sensitive",
-      },
-      view = {
-        width = 30,
-      },
+      update_focused_file = { enable = true, update_cwd = true },
+      -- change folder arrow icons
       renderer = {
-        group_empty = true,
+        indent_markers = {
+          enable = true,
+        },
+        icons = {
+          glyphs = {
+            folder = {
+              arrow_closed = "", -- arrow when folder is closed
+              arrow_open = "", -- arrow when folder is open
+            },
+          },
+        },
+      },
+      -- disable window_picker for
+      -- explorer to work well with
+      -- window splits
+      actions = {
+        change_dir = {
+          global = true,
+        },
+        open_file = {
+          resize_window = true,
+          window_picker = {
+            enable = false,
+          },
+        },
       },
       filters = {
-        dotfiles = true,
+        custom = { ".DS_Store" },
+      },
+      git = {
+        ignore = false,
       },
     })
   end,

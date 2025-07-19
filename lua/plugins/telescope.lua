@@ -1,7 +1,6 @@
 return {
-
   "nvim-telescope/telescope.nvim",
-
+  dependencies = { "folke/todo-comments.nvim" },
   opts = {
     defaults = {
       -- ignoruj node_modules, dist, .git i inne
@@ -29,4 +28,3 @@ return {
     },
   },
 }
-

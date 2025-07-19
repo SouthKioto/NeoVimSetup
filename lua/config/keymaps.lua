@@ -70,3 +70,7 @@ vim.keymap.set(
 vim.keymap.set("n", "<leader>xL", "<cmd>Trouble loclist toggle<cr>", { desc = " Location List (Trouble)" })
 
 vim.keymap.set("n", "<leader>xQ", "<cmd>Trouble qflist toggle<cr>", { desc = "Quickfix List (Trouble)" })
+
+-- todo comments + telescope
+vim.keymap.set("n", "<leader>tt", "<cmd>TodoTelescope<cr>", { desc = "Todo (Telescope)" })
+vim.keymap.set("n", "<leader>tq", "<cmd>TodoQuickFix<cr>", { desc = "Todo (QuickFix)" })
