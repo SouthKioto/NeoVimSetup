@@ -4,7 +4,7 @@ vim.g.mapleader = " "
 vim.keymap.set("n", "<leader>ff", ":Telescope find_files<CR>", { noremap = true, silent = true })
 
 --nvim tree
-vim.keymap.set("n", "<leader>e", ":NvimTreeToggle<CR>", { noremap = true, silent = true })
+vim.keymap.set("n", "<leader>e", ":Neotree filesystem reveal float<CR>", { noremap = true, silent = true })
 
 -- bufory
 -- Przejdź do następnego bufora
@@ -49,7 +49,7 @@ end, { desc = "Create Git Worktree" })
 vim.keymap.set({ "n", "t" }, "<leader>ld", "<Cmd>lua LazyDocker.toggle()<CR>")
 
 --terminal
-vim.keymap.set("n", "<leader>;", "<Cmd>:FloatermToggle<CR>")
+vim.keymap.set("n", "<leader>;", "<Cmd>:ToggleTerm size=25<CR>")
 
 --troublenvim
 vim.keymap.set("n", "<leader>xx", "<cmd>Trouble diagnostics toggle<cr>", { desc = "Diagnostic (Trouble)" })
@@ -74,3 +74,7 @@ vim.keymap.set("n", "<leader>xQ", "<cmd>Trouble qflist toggle<cr>", { desc = "Qu
 -- todo comments + telescope
 vim.keymap.set("n", "<leader>tt", "<cmd>TodoTelescope<cr>", { desc = "Todo (Telescope)" })
 vim.keymap.set("n", "<leader>tq", "<cmd>TodoQuickFix<cr>", { desc = "Todo (QuickFix)" })
+
+-- live serwer
+vim.keymap.set("n", "<leader>ls", "<cmd>LiveServerStart<cr>", { desc = "Live server start" })
+vim.keymap.set("n", "<leader>lx", "<cmd>LiveServerStop<cr>", { desc = "Live server stop" })

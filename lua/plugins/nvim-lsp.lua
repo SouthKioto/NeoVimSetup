@@ -24,6 +24,7 @@ return {
           "html",
           "cssls",
           "tailwindcss",
+          "rust_analyzer",
         },
         automatic_installation = true,
       })
@@ -31,10 +32,32 @@ return {
   },
 
   {
-    "neovim/nvim-lspconfig",
-    dependencies = { "saghen/blink.cmp" },
+    "nvimdev/lspsaga.nvim",
+    config = function()
+      require("lspsaga").setup({
+        opts = {
+          ft = {
+            "tsx",
+            "ts",
+            "js",
+            "jsx",
+            "rs",
+            "py",
+          },
+        },
+      })
+    end,
+    dependencies = {
+      "nvim-treesitter/nvim-treesitter", -- optional
+      "nvim-tree/nvim-web-devicons", -- optional
+    },
+  },
 
-    config = function(_, opts)
+  {
+    "neovim/nvim-lspconfig",
+    --dependencies = { "saghen/blink.cmp" },
+
+    --[[config = function(_, opts)
       local lspconfig = require("lspconfig")
       for server, config in pairs(opts.servers) do
         -- passing config.capabilities to blink.cmp merges with the capabilities in your
@@ -42,23 +65,51 @@ return {
         config.capabilities = require("blink.cmp").get_lsp_capabilities(config.capabilities)
         lspconfig[server].setup(config)
       end
-    end,
+    end,--]]
 
     config = function()
-      local capabilities = require("blink.cmp").get_lsp_capabilities()
       local lspconfig = require("lspconfig")
-      --local capabilities = require("cmp_nvim_lsp").default_capabilities()
+      local capabilities = require("cmp_nvim_lsp").default_capabilities()
+      --local util = require("lspconfig/util")
+
+      local on_attach = function(_, bufnr)
+        local buf_map = function(mode, lhs, rhs)
+          vim.api.nvim_buf_set_keymap(bufnr, mode, lhs, rhs, { noremap = true, silent = true })
+        end
+
+        buf_map("n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>")
+        buf_map("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>")
+        buf_map("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>")
+        buf_map("n", "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>")
+        buf_map("n", "<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>")
+      end
 
       lspconfig.lua_ls.setup({
         capabilities = capabilities,
+        on_attach = on_attach,
       })
 
       lspconfig.pyright.setup({
         capabilities = capabilities,
+        on_attach = on_attach,
       })
 
-      lspconfig.ts_ls.setup({
+      lspconfig.ts_ls.setup({ -- poprawna nazwa!
         capabilities = capabilities,
+        on_attach = on_attach,
+      })
+
+      lspconfig.rust_analyzer.setup({
+        capabilities = capabilities,
+        on_attach = on_attach,
+        root_dir = require("lspconfig.util").root_pattern("Cargo.toml"),
+        settings = {
+          ["rust_analyzer"] = {
+            cargo = {
+              allFeatures = true,
+            },
+          },
+        },
       })
     end,
   },

@@ -5,7 +5,9 @@ require("config.keymaps")
 require("lualine").setup()
 require("todo-comments").setup()
 
-require("nvim-tree").setup()
+require("live-server").setup()
+
 require("bufferline").setup()
+require("neo-tree").setup()
 
 require("lazydocker")
