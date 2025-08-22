@@ -3,6 +3,9 @@ vim.g.mapleader = " "
 --filter
 vim.keymap.set("n", "<leader>ff", ":Telescope find_files<CR>", { noremap = true, silent = true })
 
+--escape from terminal mode
+vim.keymap.set("t", "<Esc>", [[<C-\><C-n>]], { noremap = true })
+
 --nvim tree
 vim.keymap.set("n", "<leader>e", ":Neotree filesystem reveal float<CR>", { noremap = true, silent = true })
 
@@ -49,7 +52,7 @@ end, { desc = "Create Git Worktree" })
 vim.keymap.set({ "n", "t" }, "<leader>ld", "<Cmd>lua LazyDocker.toggle()<CR>")
 
 --terminal
-vim.keymap.set("n", "<leader>;", "<Cmd>:ToggleTerm size=25<CR>")
+vim.keymap.set("n", "<leader>;", "<Cmd>:ToggleTerm size=50 direction=vertical<CR>")
 
 --troublenvim
 vim.keymap.set("n", "<leader>xx", "<cmd>Trouble diagnostics toggle<cr>", { desc = "Diagnostic (Trouble)" })
