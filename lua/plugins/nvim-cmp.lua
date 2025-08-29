@@ -6,9 +6,8 @@ return {
     "hrsh7th/cmp-emoji",
     "hrsh7th/cmp-cmdline",
     "hrsh7th/cmp-nvim-lsp",
-    "L3MON4D3/LuaSnip",
   },
-  event = { "InsertEnter", "CmdlineEnter" }, -- zamiast lazy = true
+  event = { "InsertEnter", "CmdlineEnter" },
   config = function()
     local cmp = require("cmp")
     local luasnip = require("luasnip")

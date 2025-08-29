@@ -52,7 +52,7 @@ end, { desc = "Create Git Worktree" })
 vim.keymap.set({ "n", "t" }, "<leader>ld", "<Cmd>lua LazyDocker.toggle()<CR>")
 
 --terminal
-vim.keymap.set("n", "<leader>;", "<Cmd>:ToggleTerm size=50 direction=vertical<CR>")
+vim.keymap.set("n", "<leader>;", "<Cmd>:ToggleTerm size=50 direction=vertical<CR>", { desc = "Vertical term size 50" })
 
 --troublenvim
 vim.keymap.set("n", "<leader>xx", "<cmd>Trouble diagnostics toggle<cr>", { desc = "Diagnostic (Trouble)" })
