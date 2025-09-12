@@ -99,6 +99,13 @@ return {
         on_attach = on_attach,
       })
 
+      lspconfig.eslint.setup({
+        on_attach = function(client, bufnr)
+          client.server_capabilities.documentFormattingProvider = true
+          client.server_capabilities.diagnosticProvider = false -- 🔥 wyłącza dublowanie błędów
+        end,
+      })
+
       lspconfig.rust_analyzer.setup({
         capabilities = capabilities,
         on_attach = on_attach,
