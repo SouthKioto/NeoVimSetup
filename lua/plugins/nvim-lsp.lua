@@ -19,7 +19,7 @@ return {
           "lua_ls",
           "pyright",
           "bashls",
-          "ts_ls",
+          --"ts_ls",
           "html",
           "cssls",
           "tailwindcss",
