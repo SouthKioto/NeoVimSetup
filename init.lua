@@ -2,6 +2,8 @@ require("config.lazy")
 require("config.options")
 require("config.keymaps")
 
+require("typescript").setup()
+
 require("lualine").setup()
 require("todo-comments").setup()
 

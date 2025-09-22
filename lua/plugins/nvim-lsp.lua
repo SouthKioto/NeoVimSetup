@@ -5,7 +5,6 @@ return {
       "williamboman/mason-lspconfig.nvim",
       "hrsh7th/cmp-nvim-lsp",
     },
-
     build = ":MasonUpdate",
     config = function()
       require("mason").setup({
@@ -48,31 +47,18 @@ return {
       })
     end,
     dependencies = {
-      "nvim-treesitter/nvim-treesitter", -- optional
-      "nvim-tree/nvim-web-devicons", -- optional
+      "nvim-treesitter/nvim-treesitter",
+      "nvim-tree/nvim-web-devicons",
     },
   },
 
   {
     "neovim/nvim-lspconfig",
-    --dependencies = { "saghen/blink.cmp" },
-
-    --[[config = function(_, opts)
-      local lspconfig = require("lspconfig")
-      for server, config in pairs(opts.servers) do
-        -- passing config.capabilities to blink.cmp merges with the capabilities in your
-        -- `opts[server].capabilities, if you've defined it
-        config.capabilities = require("blink.cmp").get_lsp_capabilities(config.capabilities)
-        lspconfig[server].setup(config)
-      end
-    end,--]]
-
     config = function()
       local lspconfig = require("lspconfig")
       local capabilities = require("cmp_nvim_lsp").default_capabilities()
-      --local util = require("lspconfig/util")
 
-      local on_attach = function(_, bufnr)
+      local on_attach = function(client, bufnr)
         local buf_map = function(mode, lhs, rhs)
           vim.api.nvim_buf_set_keymap(bufnr, mode, lhs, rhs, { noremap = true, silent = true })
         end
@@ -84,40 +70,24 @@ return {
         buf_map("n", "<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>")
       end
 
-      lspconfig.lua_ls.setup({
-        capabilities = capabilities,
-        on_attach = on_attach,
-      })
-
-      lspconfig.pyright.setup({
-        capabilities = capabilities,
-        on_attach = on_attach,
-      })
-
-      lspconfig.ts_ls.setup({ -- poprawna nazwa!
-        capabilities = capabilities,
-        on_attach = on_attach,
-      })
-
-      lspconfig.eslint.setup({
-        on_attach = function(client, bufnr)
-          client.server_capabilities.documentFormattingProvider = true
-          client.server_capabilities.diagnosticProvider = false -- 🔥 wyłącza dublowanie błędów
-        end,
-      })
-
-      lspconfig.rust_analyzer.setup({
-        capabilities = capabilities,
-        on_attach = on_attach,
-        root_dir = require("lspconfig.util").root_pattern("Cargo.toml"),
-        settings = {
-          ["rust_analyzer"] = {
-            cargo = {
-              allFeatures = true,
+      local servers = {
+        lua_ls = {},
+        pyright = {},
+        rust_analyzer = {
+          root_dir = lspconfig.util.root_pattern("Cargo.toml"),
+          settings = {
+            ["rust_analyzer"] = {
+              cargo = { allFeatures = true },
             },
           },
         },
-      })
+      }
+
+      for server, config in pairs(servers) do
+        config.capabilities = capabilities
+        config.on_attach = on_attach
+        lspconfig[server].setup(config)
+      end
     end,
   },
 
@@ -126,15 +96,13 @@ return {
     event = { "BufReadPre", "BufNewFile" },
     config = function()
       local conform = require("conform")
-
       conform.setup({
         default_format_opts = {
           timeout_ms = 3000,
-          async = false, -- not recommended to change
-          quiet = false, -- not recommended to change
-          lsp_format = "fallback", -- not recommended to change
+          async = false,
+          quiet = false,
+          lsp_format = "fallback",
         },
-
         formatters_by_ft = {
           lua = { "stylua" },
           python = { "isort", "black" },
@@ -145,14 +113,11 @@ return {
           javascriptreact = { "prettier" },
           json = { "prettier", stop_after_first = true },
         },
-
         formatters = {
-          --injected = { options = { ignore_errors = true } },
           prettier = {
             prepend_args = { "--single-quote", "--tab-width", "2" },
           },
         },
-
         format_on_save = {
           timeout_ms = 3000,
           async = false,

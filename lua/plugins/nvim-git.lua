@@ -1,7 +1,7 @@
 return {
   {
     "tpope/vim-fugitive",
-    lazy = false, -- Ładuj od razu (bo definiuje komendę :Git)
+    lazy = false,
   },
 
   {
