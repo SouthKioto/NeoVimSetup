@@ -83,11 +83,32 @@ return {
         },
       }
 
-      for server, config in pairs(servers) do
+      vim.lsp.config("rust_analyzer", {
+        settings = {
+          ["rust_analyzer"] = {
+            cargo = { allFeatures = true },
+          },
+        },
+      })
+
+      vim.lsp.config("pyright", {})
+
+      vim.lsp.config("lua_ls", {})
+
+      --[[for server, config in pairs(servers) do
         config.capabilities = capabilities
         config.on_attach = on_attach
-        lspconfig[server].setup(config)
-      end
+
+        if vim.lsp.config and vim.lsp.config[server] then
+          -- nowe API Neovim 0.11+
+          local lsp_conf = vim.lsp.config[server].make(config)
+          vim.lsp.start(lsp_conf)
+        else
+          -- fallback dla starszego API
+          require("lspconfig")[server].setup(config)
+        end
+      end]]
+      --
     end,
   },
 
