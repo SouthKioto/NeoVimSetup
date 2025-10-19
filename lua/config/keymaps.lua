@@ -36,15 +36,19 @@ vim.keymap.set("n", "<A-Down>", "<C-w>-", { desc = "Zmniejsz wysokość" })
 
 vim.keymap.set("n", "<leader>sx", "<Cmd>close<CR>", { desc = "Zamknij split" })
 
+-- debugowanie
+vim.keymap.set("n", "<leader>db", "<cmd>DapToggleBreakpoint <CR>", { desc = "Dodanie breakpointa" });
+vim.keymap.set("n", "<leader>dr", "<cmd>DapContinue <CR>", { desc = "Rozpocznij lub kontunuuj debugowanie" });
+
 --git-worktree
 -- otwarcie listy worktree'ów
 vim.keymap.set("n", "<leader>gw", function()
-  require("telescope").extensions.git_worktree.git_worktrees()
+    require("telescope").extensions.git_worktree.git_worktrees()
 end, { desc = "List Git Worktrees" })
 
 -- utworzenie nowego worktree
 vim.keymap.set("n", "<leader>gc", function()
-  require("telescope").extensions.git_worktree.create_git_worktree()
+    require("telescope").extensions.git_worktree.create_git_worktree()
 end, { desc = "Create Git Worktree" })
 
 --lazydocker
@@ -57,17 +61,17 @@ vim.keymap.set("n", "<leader>;", "<Cmd>:ToggleTerm size=50 direction=vertical<CR
 --troublenvim
 vim.keymap.set("n", "<leader>xx", "<cmd>Trouble diagnostics toggle<cr>", { desc = "Diagnostic (Trouble)" })
 vim.keymap.set(
-  "n",
-  "<leader>xX",
-  "<cmd>Trouble diagnostics toggle filter.buf=0<cr>",
-  { desc = "Buffer Diagnostics (Trouble)" }
+    "n",
+    "<leader>xX",
+    "<cmd>Trouble diagnostics toggle filter.buf=0<cr>",
+    { desc = "Buffer Diagnostics (Trouble)" }
 )
 vim.keymap.set("n", "<leader>cs", "<cmd>Trouble symbols toggle focus=false<cr>", { desc = " Symbols (Trouble)" })
 vim.keymap.set(
-  "n",
-  "<leader>cl",
-  "<cmd>Trouble lsp toggle focus=false win.position=right<cr>",
-  { desc = "LSP Definitions / references / ... (Trouble)" }
+    "n",
+    "<leader>cl",
+    "<cmd>Trouble lsp toggle focus=false win.position=right<cr>",
+    { desc = "LSP Definitions / references / ... (Trouble)" }
 )
 
 vim.keymap.set("n", "<leader>xL", "<cmd>Trouble loclist toggle<cr>", { desc = " Location List (Trouble)" })

@@ -7,7 +7,7 @@ require("typescript-tools").setup({})
 require("lualine").setup()
 require("todo-comments").setup()
 
-require("live-server").setup()
+--require("live-server").setup()
 
 require("bufferline").setup()
 require("neo-tree").setup()

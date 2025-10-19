@@ -5,9 +5,9 @@ return {
     config = function()
       require("typescript-tools").setup({
         settings = {
-          tsserver_max_memory = 4096,
-          separate_diagnostic_server = true,
-          publish_diagnostic_on = "insert_leave",
+          tsserver_max_memory = 8192,
+          separate_diagnostic_server = false,
+          publish_diagnostic_on = "save",
           expose_as_code_action = "all",
         },
       })
