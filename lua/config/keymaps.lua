@@ -85,3 +85,8 @@ vim.keymap.set("n", "<leader>tq", "<cmd>TodoQuickFix<cr>", { desc = "Todo (Quick
 -- live serwer
 vim.keymap.set("n", "<leader>ls", "<cmd>LiveServerStart<cr>", { desc = "Live server start" })
 vim.keymap.set("n", "<leader>lx", "<cmd>LiveServerStop<cr>", { desc = "Live server stop" })
+
+-- vim dispatch (auto uruchamianie kodu)
+vim.keymap.set("n", "<leader>c", ":Make<CR>", { desc = "Kompiluj C++" })
+vim.keymap.set("n", "<leader>r", ":Dispatch ./%:r<CR>", { desc = "Uruchom program" })
+vim.keymap.set("n", "<leader>q", ":copen<CR>", { desc = "Otwórz QuickFix" })

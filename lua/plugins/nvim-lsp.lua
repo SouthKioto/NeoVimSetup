@@ -24,7 +24,6 @@ return {
                     --"ts_ls",
                     "html",
                     "cssls",
-                    "tailwindcss",
                     "rust_analyzer",
                 },
                 automatic_installation = true,
@@ -76,6 +75,7 @@ return {
                 lua_ls = {},
                 pyright = {},
                 clangd = {},
+                ts_ls = {},
                 rust_analyzer = {
                     root_dir = lspconfig.util.root_pattern("Cargo.toml"),
                     settings = {
@@ -95,6 +95,8 @@ return {
             })
 
             vim.lsp.config("clangd", {})
+
+            vim.lsp.config("ts_ls", {})
 
             vim.lsp.config("pyright", {})
 
