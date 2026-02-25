@@ -10,7 +10,19 @@ return {
         lazy = false,
 
         config = function()
-            require("neo-tree").setup({})
+            require("neo-tree").setup({
+                filesystem = {
+                    filtered_items = {
+                        visible = true, -- To sprawia, że ukryte pliki są widoczne
+                        hide_dotfiles = false,
+                        hide_gitignored = false, -- To kluczowe ustawienie
+                        hide_by_name = {
+                            -- ".DS_Store",
+                            -- "thumbs.db",
+                        },
+                    },
+                },
+            })
         end,
     },
 }
