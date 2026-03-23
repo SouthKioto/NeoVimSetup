@@ -8,10 +8,11 @@ return {
         config = function()
             require("mason").setup()
             require("mason-lspconfig").setup({
-                ensure_installed = { "lua_ls", "pyright", "ts_ls", "html", "cssls", "jsonls", "intelephense" },
+                ensure_installed = { "lua_ls", "pyright", "ts_ls", "html", "cssls", "jsonls", "intelephense", "clangd" },
             })
 
-            local servers = { "lua_ls", "pyright", "ts_ls", "html", "cssls", "jsonls", "tailwindcss", "intelephense" }
+            local servers =
+                { "lua_ls", "pyright", "ts_ls", "html", "cssls", "jsonls", "tailwindcss", "intelephense", "clangd" }
 
             for _, server in ipairs(servers) do
                 vim.lsp.enable(server)
