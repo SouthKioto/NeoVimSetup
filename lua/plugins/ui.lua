@@ -1,60 +1,32 @@
-local function hl_color(group, attr)
-    local ok, hl = pcall(vim.api.nvim_get_hl, 0, { name = group, link = false })
-    if not ok or not hl then
-        return nil
-    end
-    local val = hl[attr]
-    if not val then
-        return nil
-    end
-    return string.format("#%06x", val)
-end
-
-local function get_colors()
-    return {
-        bg = hl_color("Normal", "bg") or "#0e100c",
-        fg = hl_color("Normal", "fg") or "#eeede8",
-        accent = hl_color("Keyword", "fg") or "#586d4a",
-        accent2 = hl_color("Operator", "fg") or "#92bf7a",
-        type = hl_color("Type", "fg") or "#b5a97a",
-        fg_dim = hl_color("Comment", "fg") or "#9a9790",
-        bg_alt = hl_color("NormalFloat", "bg") or "#121510",
-        bg_dark = hl_color("CursorLine", "bg") or "#22211f",
-        visual = hl_color("Visual", "bg") or "#1e2b19",
-    }
-end
-
 return {
     {
         "rebelot/kanagawa.nvim",
-        lazy = false,
-        priority = 1000,
         config = function()
+            -- Default options:
             require("kanagawa").setup({
-                compile = false,
-                undercurl = true,
+                compile = false, -- enable compiling the colorscheme
+                undercurl = true, -- enable undercurls
                 commentStyle = { italic = true },
-                keywordStyle = { italic = false },
+                functionStyle = {},
+                keywordStyle = { italic = true },
                 statementStyle = { bold = true },
-                transparent = false,
-                dimInactive = false,
-                terminalColors = true,
-                colors = {
-                    theme = {
-                        all = {
-                            ui = {
-                                bg_gutter = "none",
-                            },
-                        },
-                    },
+                typeStyle = {},
+                transparent = false, -- do not set background color
+                dimInactive = false, -- dim inactive window `:h hl-NormalNC`
+                terminalColors = true, -- define vim.g.terminal_color_{0,17}
+                colors = { -- add/modify theme and palette colors
+                    palette = {},
+                    theme = { wave = {}, lotus = {}, dragon = {}, all = {} },
                 },
-                overrides = function(colors)
+                overrides = function(colors) -- add/modify highlights
                     return {}
                 end,
-                theme = "dragon",
+                theme = "wave", -- Load "wave" theme
+                background = { -- map the value of 'background' option to a theme
+                    dark = "dragon", -- try "dragon" !
+                    light = "lotus",
+                },
             })
-
-            vim.cmd("colorscheme kanagawa-dragon")
         end,
     },
 
@@ -62,39 +34,8 @@ return {
         "nvim-lualine/lualine.nvim",
         dependencies = { "nvim-tree/nvim-web-devicons" },
         config = function()
-            local c = get_colors()
-            local theme = {
-                normal = {
-                    a = { fg = c.bg, bg = c.accent, gui = "bold" },
-                    b = { fg = c.accent2, bg = c.bg_alt },
-                    c = { fg = c.fg_dim, bg = c.bg },
-                },
-                insert = {
-                    a = { fg = c.bg, bg = c.accent2, gui = "bold" },
-                    b = { fg = c.accent2, bg = c.bg_alt },
-                },
-                visual = {
-                    a = { fg = c.bg, bg = c.type, gui = "bold" },
-                    b = { fg = c.type, bg = c.bg_alt },
-                },
-                replace = {
-                    a = { fg = c.bg, bg = c.type, gui = "bold" },
-                    b = { fg = c.type, bg = c.bg_alt },
-                },
-                command = {
-                    a = { fg = c.bg, bg = c.fg_dim, gui = "bold" },
-                    b = { fg = c.fg_dim, bg = c.bg_alt },
-                },
-                inactive = {
-                    a = { fg = c.fg_dim, bg = c.bg_alt },
-                    b = { fg = c.fg_dim, bg = c.bg_alt },
-                    c = { fg = c.fg_dim, bg = c.bg },
-                },
-            }
-
             require("lualine").setup({
                 options = {
-                    theme = theme,
                     globalstatus = true,
                     component_separators = { left = "⏐", right = "⏐" },
                     section_separators = { left = "", right = "" },
@@ -122,7 +63,6 @@ return {
                             function()
                                 return "Urahara's Shop"
                             end,
-                            color = { fg = c.accent },
                         },
                     },
                     lualine_z = { "location" },
@@ -135,7 +75,6 @@ return {
         "goolord/alpha-nvim",
         config = function()
             local dashboard = require("alpha.themes.dashboard")
-            local c = get_colors()
 
             dashboard.section.header.val = {
                 [[⣿⣿⣿⣿⣿⣿⣿⣿⣿⣻⣿⣿⣿⡿⢿⡿⠿⠿⣿⣿⣿⣿⣿⣿⡿⣿⣿⣿⡿⣿⣿]],
@@ -183,11 +122,6 @@ return {
                 dashboard.button("q", "󰈆  Return to Karakura Town", ":qa<CR>"),
             }
 
-            vim.api.nvim_set_hl(0, "AlphaHeader", { fg = c.accent, bold = true })
-            vim.api.nvim_set_hl(0, "AlphaButtons", { fg = c.accent2 })
-            vim.api.nvim_set_hl(0, "AlphaShortcut", { fg = c.type, bold = true })
-            vim.api.nvim_set_hl(0, "AlphaFooter", { fg = c.fg_dim, italic = true })
-
             dashboard.section.header.opts.hl = "AlphaHeader"
             dashboard.section.buttons.opts.hl = "AlphaButtons"
 
@@ -197,10 +131,7 @@ return {
     {
         "nvim-zh/colorful-winsep.nvim",
         config = function()
-            local c = get_colors()
-            require("colorful-winsep").setup({
-                color = { c.bg_dark, c.accent, c.accent2 },
-            })
+            require("colorful-winsep").setup({})
         end,
         event = { "WinLeave" },
     },

@@ -8,10 +8,11 @@ return {
         formatters_by_ft = {
             lua = { "stylua" },
             python = { "isort", "black" },
-            javascript = { "prettierd", "prettier", stop_after_first = true },
-            php = { "php-cs-fixer", stop_after_first = true },
-            c = { "clang-format", stop_after_first = true },
-            cpp = { "clang-format", stop_after_first = true },
+
+            javascript = { "prettierd", "prettier" },
+            php = { "php-cs-fixer" },
+            cpp = { "clang_format" },
+            c = { "clang_format" },
         },
         format_on_save = {
             timeout_ms = 500,

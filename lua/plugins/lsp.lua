@@ -22,18 +22,13 @@ return {
                 "intelephense",
                 "clangd",
             }
-
-            -- Ścieżka do g++ (pamiętaj o / zamiast \)
             local gpp_path = "C:/msys64/ucrt64/bin/g++.exe"
 
-            -- 1. Definiujemy specyficzne konfiguracje
 
-            -- Konfiguracja dla Lua
             vim.lsp.config("lua_ls", {
                 settings = { Lua = { diagnostics = { globals = { "vim" } }, format = { enable = false } } },
             })
 
-            -- Konfiguracja dla Clangd (naprawa bibliotek standardowych)
             vim.lsp.config("clangd", {
                 cmd = {
                     "clangd",
@@ -44,7 +39,6 @@ return {
                 },
             })
 
-            -- 2. Włączamy wszystkie serwery z listy
             for _, server in ipairs(servers) do
                 vim.lsp.enable(server)
             end

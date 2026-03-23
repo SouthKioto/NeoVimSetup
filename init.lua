@@ -12,6 +12,7 @@ vim.opt.fillchars = { eob = " " }
 vim.opt.wrap = false
 vim.opt.clipboard = "unnamedplus"
 
+
 require("config.lazy").setup({
     spec = {
         { import = "plugins" },
@@ -32,3 +33,6 @@ require("config.lazy").setup({
 })
 
 require("config.keymaps")
+
+
+vim.cmd("colorscheme kanagawa")
