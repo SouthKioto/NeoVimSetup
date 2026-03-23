@@ -10,6 +10,8 @@ return {
             python = { "isort", "black" },
             javascript = { "prettierd", "prettier", stop_after_first = true },
             php = { "php-cs-fixer", stop_after_first = true },
+            c = { "clang-format", stop_after_first = true },
+            cpp = { "clang-format", stop_after_first = true },
         },
         format_on_save = {
             timeout_ms = 500,

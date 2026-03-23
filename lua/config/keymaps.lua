@@ -34,3 +34,6 @@ vim.keymap.set("n", "<leader>lp", function()
     vim.cmd("LivePreview start " .. vim.fn.expand("%:p"))
 end)
 vim.keymap.set("n", "<leader>lpc", "<cmd>LivePreview close<CR>")
+
+-- toggleTerm
+vim.keymap.set("n", "<leader>tte", ":ToggleTerm name='Urachara'sShop'<CR>")

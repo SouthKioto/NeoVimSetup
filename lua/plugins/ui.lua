@@ -26,12 +26,35 @@ end
 
 return {
     {
-        "SouthKioto/urahara.nvim",
+        "rebelot/kanagawa.nvim",
         lazy = false,
         priority = 1000,
         config = function()
-            require("urahara").setup()
-            vim.g.colors_name = "urahara"
+            require("kanagawa").setup({
+                compile = false,
+                undercurl = true,
+                commentStyle = { italic = true },
+                keywordStyle = { italic = false },
+                statementStyle = { bold = true },
+                transparent = false,
+                dimInactive = false,
+                terminalColors = true,
+                colors = {
+                    theme = {
+                        all = {
+                            ui = {
+                                bg_gutter = "none",
+                            },
+                        },
+                    },
+                },
+                overrides = function(colors)
+                    return {}
+                end,
+                theme = "dragon",
+            })
+
+            vim.cmd("colorscheme kanagawa-dragon")
         end,
     },
 
