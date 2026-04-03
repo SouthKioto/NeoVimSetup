@@ -24,7 +24,6 @@ return {
             }
             local gpp_path = "C:/msys64/ucrt64/bin/g++.exe"
 
-
             vim.lsp.config("lua_ls", {
                 settings = { Lua = { diagnostics = { globals = { "vim" } }, format = { enable = false } } },
             })
