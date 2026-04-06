@@ -1,39 +1,40 @@
---windows management
-vim.keymap.set("n", "<C-h>", "<C-w>h", { desc = "Przejdź do lewego okna" })
-vim.keymap.set("n", "<C-j>", "<C-w>j", { desc = "Przejdź do dolnego okna" })
-vim.keymap.set("n", "<C-k>", "<C-w>k", { desc = "Przejdź do górnego okna" })
-vim.keymap.set("n", "<C-l>", "<C-w>l", { desc = "Przejdź do prawego okna" })
+local map = vim.keymap.set
 
-vim.keymap.set("n", "<leader>v", "<C-w>v", { desc = "Split pionowy" })
-vim.keymap.set("n", "<leader>s", "<C-w>s", { desc = "Split poziomy" })
+map("n", "<C-h>", "<C-w>h", { desc = "Okno ←" })
+map("n", "<C-j>", "<C-w>j", { desc = "Okno ↓" })
+map("n", "<C-k>", "<C-w>k", { desc = "Okno ↑" })
+map("n", "<C-l>", "<C-w>l", { desc = "Okno →" })
 
--- Neotree
-vim.keymap.set("n", "<leader>e", "<cmd>Neotree toggle<CR>", { noremap = true, silent = true })
+map("n", "<leader>wv", "<C-w>v", { desc = "Split pionowy" })
+map("n", "<leader>ws", "<C-w>s", { desc = "Split poziomy" })
+map("n", "<leader>wc", "<C-w>c", { desc = "Zamknij okno" })
 
--- bufferTabs
-vim.keymap.set("n", "<leader>t", "<cmd>:BufferTabsToggle<CR>", { noremap = true, silent = true })
-vim.keymap.set("n", "<Tab>", ":bnext<CR>", { noremap = true, silent = true })
-vim.keymap.set("n", "<S-Tab>", ":bprevious<CR>", { noremap = true, silent = true })
-vim.keymap.set("n", "<leader>x", ":bdelete<CR>", { noremap = true, silent = true })
+map("n", "<leader>e", "<cmd>Neotree toggle<CR>", { desc = "Explorer" })
 
---telescope
-vim.keymap.set("n", "<leader>fb", require("telescope.builtin").buffers, {})
-vim.keymap.set("n", "<leader>ff", "<cmd>Telescope find_files<cr>")
-vim.keymap.set("n", "<leader>fg", "<cmd>Telescope live_grep<cr>")
-vim.keymap.set("n", "<leader>fb", "<cmd>Telescope buffers<cr>")
-vim.keymap.set("n", "<leader>fh", "<cmd>Telescope help_tags<cr>")
+map("n", "<leader>ff", "<cmd>Telescope find_files<CR>", { desc = "Znajdź pliki" })
+map("n", "<leader>fg", "<cmd>Telescope live_grep<CR>", { desc = "Szukaj (grep)" })
+map("n", "<leader>fb", "<cmd>Telescope buffers<CR>", { desc = "Bufory" })
+map("n", "<leader>fh", "<cmd>Telescope help_tags<CR>", { desc = "Help" })
 
---transparent toggle
-vim.keymap.set("n", "<leader>tt", ":TransparentToggle<CR>", { desc = "Toggle Transparency" })
+map("n", "<S-l>", "<cmd>BufferLineCycleNext<CR>", { desc = "Następny buffer" })
+map("n", "<S-h>", "<cmd>BufferLineCyclePrev<CR>", { desc = "Poprzedni buffer" })
 
---stupid
-vim.keymap.set("n", "<leader>fml", "<cmd>CellularAutomaton make_it_rain<CR>")
+map("n", "<leader>bd", "<cmd>bdelete<CR>", { desc = "Zamknij buffer" })
+map("n", "<leader>bp", "<cmd>BufferLinePick<CR>", { desc = "Wybierz buffer" })
 
--- life preview
-vim.keymap.set("n", "<leader>lp", function()
+map("n", "<leader>tt", "<cmd>ToggleTerm<CR>", { desc = "Terminal toggle" })
+map("n", "<leader>tf", "<cmd>ToggleTerm direction=float<CR>", { desc = "Terminal float" })
+map("n", "<leader>th", "<cmd>ToggleTerm size=10 direction=horizontal<CR>", { desc = "Terminal poziomy" })
+map("n", "<leader>tv", "<cmd>ToggleTerm size=80 direction=vertical<CR>", { desc = "Terminal pionowy" })
+
+map("t", "<Esc>", [[<C-\><C-n>]], { desc = "Wyjdź z terminala" })
+
+map("n", "<leader>ut", "<cmd>TransparentToggle<CR>", { desc = "Transparency" })
+
+map("n", "<leader>rr", "<cmd>CellularAutomaton make_it_rain<CR>", { desc = "Matrix rain 😎" })
+
+map("n", "<leader>lp", function()
     vim.cmd("LivePreview start " .. vim.fn.expand("%:p"))
-end)
-vim.keymap.set("n", "<leader>lpc", "<cmd>LivePreview close<CR>")
+end, { desc = "Preview start" })
 
--- toggleTerm
-vim.keymap.set("n", "<leader>tte", ":ToggleTerm name='Urachara'sShop'<CR>")
+map("n", "<leader>lq", "<cmd>LivePreview close<CR>", { desc = "Preview stop" })
