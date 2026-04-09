@@ -8,7 +8,7 @@ return {
         config = function()
             require("mason").setup()
             require("mason-lspconfig").setup({
-                ensure_installed = { "lua_ls", "pyright", "ts_ls", "html", "cssls", "jsonls", "intelephense", "clangd" },
+                ensure_installed = { "lua_ls", "pyright", "ts_ls", "html", "cssls", "jsonls", "intelephense" },
             })
 
             local servers = {
@@ -20,9 +20,11 @@ return {
                 "jsonls",
                 "tailwindcss",
                 "intelephense",
-                "clangd",
             }
-            local gpp_path = "C:/msys64/ucrt64/bin/g++.exe"
+            local gpp_path = "g++"
+            if vim.loop.os_uname().sysname == "Windows_NT" then
+                gpp_path = "C:/msys64/clang64/bin/g++.exe"
+            end
 
             vim.lsp.config("lua_ls", {
                 settings = { Lua = { diagnostics = { globals = { "vim" } }, format = { enable = false } } },

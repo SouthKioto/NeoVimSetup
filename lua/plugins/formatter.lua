@@ -1,7 +1,5 @@
 return {
     "stevearc/conform.nvim",
-    timeout_ms = 2000,
-    lsp_fallback = true,
     event = { "BufWritePre" },
     cmd = { "ConformInfo" },
     opts = {
