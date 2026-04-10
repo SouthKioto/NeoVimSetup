@@ -8,7 +8,7 @@ return {
         config = function()
             require("mason").setup()
             require("mason-lspconfig").setup({
-                ensure_installed = { "lua_ls", "pyright", "ts_ls", "html", "cssls", "jsonls", "intelephense" },
+                ensure_installed = { "lua_ls", "pyright", "ts_ls", "html", "cssls", "jsonls", "intelephense", "clangd" },
             })
 
             local servers = {
@@ -20,10 +20,12 @@ return {
                 "jsonls",
                 "tailwindcss",
                 "intelephense",
+                "clangd",
             }
-            local gpp_path = "g++"
+
+            local query_driver = "/usr/bin/g++,/usr/bin/clang++"
             if vim.loop.os_uname().sysname == "Windows_NT" then
-                gpp_path = "C:/msys64/clang64/bin/g++.exe"
+                query_driver = "C:/msys64/clang64/bin/g++.exe,C:/msys64/clang64/bin/clang++.exe"
             end
 
             vim.lsp.config("lua_ls", {
@@ -33,13 +35,14 @@ return {
             vim.lsp.config("clangd", {
                 cmd = {
                     "clangd",
-                    "--query-driver=" .. gpp_path,
+                    "--query-driver=" .. query_driver,
                     "--background-index",
                     "--clang-tidy",
                     "--header-insertion=never",
                 },
             })
 
+            -- Włączanie wszystkich serwerów
             for _, server in ipairs(servers) do
                 vim.lsp.enable(server)
             end
